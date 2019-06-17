@@ -37,7 +37,7 @@ namespace LibraryCode.Controllers
             _context.BorrowedBooks.Add(borrowedBook);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetBorrowedBook), new { Id = borrowedBook.Book }, borrowedBook);
+            return CreatedAtAction(nameof(GetBorrowedBook), new { id = borrowedBook.Id }, borrowedBook);
         }
 
         [HttpPut("{id}")]
