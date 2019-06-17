@@ -32,7 +32,7 @@ namespace LibraryCode.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<UserModel>> PostBorrowedBook(UserModel user)
+        public async Task<ActionResult<UserModel>> PostUser(UserModel user)
         {
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
