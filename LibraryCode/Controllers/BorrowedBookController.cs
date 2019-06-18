@@ -1,4 +1,5 @@
 ﻿using LibraryCode.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -13,12 +14,15 @@ namespace LibraryCode.Controllers
         private readonly LibraryContext _context;
 
         [HttpGet]
+        [ProducesResponseType(typeof(BorrowedBookModels), StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<BorrowedBookModels>>> GetAllBorrowedBooks()
         {
             return await _context.BorrowedBooks.ToListAsync();
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(BorrowedBookModels), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<BorrowedBookModels>> GetBorrowedBook(long id)
         {
             var borrowedBook = await _context.BorrowedBooks.FindAsync(id);
@@ -32,7 +36,9 @@ namespace LibraryCode.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<BorrowedBookModels>> PostBorrowedBook(BorrowedBookModels borrowedBook)
+        [ProducesResponseType(typeof(BorrowedBookModels), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<BorrowedBookModels>> PostBorrowedBook([FromBody] BorrowedBookModels borrowedBook)
         {
             _context.BorrowedBooks.Add(borrowedBook);
             await _context.SaveChangesAsync();
