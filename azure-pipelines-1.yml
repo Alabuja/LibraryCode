@@ -7,7 +7,7 @@ trigger:
 - master
 - task: DotNetCoreCLI@2
   inputs:
-    command: 'build'
+    command: 'test'
 
 pool:
   vmImage: 'ubuntu-latest'
